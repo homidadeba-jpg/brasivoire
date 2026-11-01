@@ -25,7 +25,8 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
 
       // Projeta coordenadas da fotografia original no mesmo object-fit usado
       // tanto pelo fundo quanto pela silhueta. Os textos começam atrás do
-      // caminhão e da lança, mantendo opacidade: a oclusão é feita pelo guindaste.
+      // trecho superior da lança, mantendo opacidade: a oclusão é feita pelo
+      // guindaste, com um percurso curto até a composição final.
       const photoBox = photograph.getBoundingClientRect();
       const scale = Math.max(photoBox.width / 720, photoBox.height / 1280);
       const photoX = photoBox.left + (photoBox.width - 720 * scale) / 2;
@@ -46,23 +47,23 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
       if (entrance) {
         entrance.from('.hero-category', { y: 10, autoAlpha: 0, duration: .7, ease: 'power2.out' }, 0)
           .fromTo(title, {
-            x: photoX + 140 * scale - titleBox.left,
-            y: photoY + 810 * scale - titleBox.top,
-            scale: .88,
+            x: photoX + 165 * scale - titleBox.left,
+            y: photoY + (desktop ? 390 : 350) * scale - titleBox.top,
+            scale: .97,
             opacity: 1,
             transformOrigin: '0% 0%',
-            clipPath: desktop ? 'inset(0% 30% 0% 0%)' : 'inset(0% 0% 0% 0%)',
-          }, { x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 2.25 }, .12)
+            clipPath: 'inset(0% 100% 0% 0%)',
+          }, { x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.85 }, .12)
           .fromTo(description, {
-            x: photoX + 275 * scale - descriptionBox.left,
-            y: photoY + 530 * scale - descriptionBox.top,
-            scale: .92,
+            x: photoX + 290 * scale - descriptionBox.left,
+            y: photoY + 470 * scale - descriptionBox.top,
+            scale: .98,
             opacity: 1,
             transformOrigin: '0% 0%',
             clipPath: 'inset(0% 85% 0% 0%)',
-          }, { x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.7 }, .6)
-          .from('.hero-bottom-entry', { y: 12, autoAlpha: 0, duration: .65, ease: 'power2.out' }, 1.25)
-          .from('.hero-cta-entry', { y: 14, autoAlpha: 0, duration: .7, ease: 'power2.out' }, 1.4);
+          }, { x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.45 }, .4)
+          .from('.hero-bottom-entry', { y: 12, autoAlpha: 0, duration: .65, ease: 'power2.out' }, 1)
+          .from('.hero-cta-entry', { y: 14, autoAlpha: 0, duration: .7, ease: 'power2.out' }, 1.15);
       }
 
       // Uma mudança de orientação conclui a entrada em vez de deslocar os

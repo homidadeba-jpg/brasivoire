@@ -1,0 +1,106 @@
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { mkdir, readFile } from 'node:fs/promises';
+
+test('site institucional, formulários e acessibilidade desktop', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await mkdir('.artifacts', { recursive: true });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
+  await page.context().route('https://wa.me/**', route => route.fulfill({ body: 'WhatsApp interceptado; nenhuma mensagem enviada.' }));
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Proteção completapara o seu patrimônioe suas operações.');
+  for (const image of await page.locator('img').all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+  }
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: '.artifacts/desktop.png', fullPage: true });
+  const light = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  expect(light.violations).toEqual([]);
+  await page.getByRole('link', { name: 'Conversar sobre guindastes' }).click();
+  await expect(page.locator('#lead-service')).toHaveValue('guindastes');
+  await page.getByLabel('Seu nome', { exact: true }).fill('Teste de formulário');
+  await page.getByLabel('WhatsApp com DDD').fill('(19) 99999-1234');
+  await page.getByLabel('Cidade e estado').fill('Campinas, SP');
+  let popupPromise = page.waitForEvent('popup');
+  await page.getByRole('button', { name: 'Continuar no WhatsApp' }).click();
+  let popup = await popupPromise;
+  await expect.poll(() => popup.url()).toContain('https://wa.me/5519991001577');
+  expect(new URL(popup.url()).searchParams.get('text')).toContain('Modalidade: Guindastes');
+  expect(new URL(popup.url()).searchParams.get('text')).toContain('Cidade/UF: Campinas, SP');
+  await popup.close();
+  await page.evaluate(() => window.dispatchEvent(new Event('pageshow')));
+  await page.getByRole('button', { name: 'Simular consórcio', exact: true }).click();
+  await page.getByLabel('O que você tem em mente?').selectOption('imovel');
+  popupPromise = page.waitForEvent('popup');
+  await page.getByRole('button', { name: 'Continuar no WhatsApp' }).click();
+  popup = await popupPromise;
+  await expect.poll(() => popup.url()).toContain('https://wa.me/5519991001577');
+  expect(new URL(popup.url()).searchParams.get('text')).toContain('uma simulação de consórcio');
+  expect(new URL(popup.url()).searchParams.get('text')).toContain('Modalidade: Imóveis');
+  await popup.close();
+  await page.evaluate(() => window.dispatchEvent(new Event('pageshow')));
+  await page.getByRole('button', { name: 'Cotar um seguro' }).click();
+  await page.getByLabel('O que você tem em mente?').selectOption('automovel');
+  await page.getByLabel('WhatsApp com DDD').fill('123');
+  await page.getByRole('button', { name: 'Continuar no WhatsApp' }).click();
+  await expect(page.getByRole('alert')).toHaveText('Informe um WhatsApp válido com DDD.');
+  await page.getByRole('button', { name: 'Privacidade', exact: true }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).not.toBeVisible();
+  await expect(page.getByRole('button', { name: 'Privacidade', exact: true })).toBeFocused();
+  expect(errors).toEqual([]);
+});
+
+test('responsividade, temas e rodapé', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await mkdir('.artifacts', { recursive: true });
+  await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
+  await page.context().route('https://wa.me/**', route => route.fulfill({ body: 'WhatsApp interceptado; nenhuma mensagem enviada.' }));
+  await page.goto('/');
+  for (const width of [320, 390, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `overflow a ${width}px`).toBe(true);
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();
+  await expect(page.getByRole('navigation', { name: 'Navegação no celular' })).toBeVisible();
+  await page.getByRole('navigation', { name: 'Navegação no celular' }).getByRole('link', { name: 'Consórcios', exact: true }).click();
+  await expect(page.getByRole('navigation', { name: 'Navegação no celular' })).toHaveCount(0);
+  await expect(page.locator('#consorcios')).toBeInViewport();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: '.artifacts/mobile.png', fullPage: true });
+  const mobile = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  expect(mobile.violations).toEqual([]);
+  await page.getByRole('button', { name: 'Ativar tema escuro' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  const dark = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  expect(dark.violations).toEqual([]);
+  await page.screenshot({ path: '.artifacts/mobile-dark.png', fullPage: true });
+  await page.getByRole('button', { name: 'Ativar tema claro' }).click();
+  const author = page.getByRole('link', { name: 'Desenvolvido por Jonas Jr.' });
+  await expect(author).toHaveAttribute('href', 'https://wa.me/5585999745534');
+  const popupPromise = page.waitForEvent('popup');
+  await author.click();
+  const popup = await popupPromise;
+  await popup.close();
+  await page.evaluate(() => window.dispatchEvent(new Event('pageshow')));
+  await expect(author).toContainText('Desenvolvido por');
+  expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
+  expect(errors).toEqual([]);
+});
+
+test('conteúdo pré-renderizado e configuração oficial', async ({ request }) => {
+  const html = await (await request.get('/')).text();
+  expect(html).toContain('Uma especialidade');
+  expect(html).toContain('Seguro para guindastes');
+  expect(html).toMatch(/(?:noindex, nofollow|index, follow)/);
+  expect(html).not.toContain('<!--app-html-->');
+  const file = await readFile('src/company.ts', 'utf8');
+  expect(file).toContain('VITE_BRASIVOIRE_WHATSAPP');
+});

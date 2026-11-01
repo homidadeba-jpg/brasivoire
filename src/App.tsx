@@ -114,11 +114,13 @@ export default function App() {
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     setDark(mq.matches);
-    const change = (event: MediaQueryListEvent) => setDark(event.matches);
+    const change = (event: MediaQueryListEvent) => {
+      document.documentElement.dataset.theme = event.matches ? 'dark' : 'light';
+      setDark(event.matches);
+    };
     mq.addEventListener('change', change);
     return () => mq.removeEventListener('change', change);
   }, []);
-  useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; }, [dark]);
   useEffect(() => {
     if (!menuOpen) return;
     const escape = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMenuOpen(false); menuToggle.current?.focus(); } };
@@ -129,6 +131,11 @@ export default function App() {
   }, [menuOpen]);
   useEffect(() => { if (privacyOpen) privacy.current?.showModal(); else privacy.current?.close(); }, [privacyOpen]);
   function quote(type: RequestType, service = '') { setChoice({ type, service }); setMenuOpen(false); }
+  function toggleTheme() {
+    const nextDark = document.documentElement.dataset.theme !== 'dark';
+    document.documentElement.dataset.theme = nextDark ? 'dark' : 'light';
+    setDark(nextDark);
+  }
   const links = [['Guindastes', 'guindastes'], ['Consórcios', 'consorcios'], ['Outros seguros', 'seguros'], ['A Brasivoire', 'sobre']];
   return <div ref={site} className="site-root">
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -136,7 +143,7 @@ export default function App() {
       <div className="container header-inner">
         <Brand />
         <nav aria-label="Navegação principal" className="desktop-nav">{links.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav>
-        <div className="header-actions"><button className="icon-button theme-toggle" aria-label={dark ? 'Ativar tema claro' : 'Ativar tema escuro'} onClick={() => setDark(!dark)}>{dark ? <Sun size={19} /> : <Moon size={19} />}</button><a href="#cotacao" className="header-cta" onClick={() => quote('seguro', 'guindastes')}>Solicitar cotação</a><button ref={menuToggle} className="icon-button menu-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={25} /> : <List size={25} />}</button></div>
+        <div className="header-actions"><button className="icon-button theme-toggle" aria-label={dark ? 'Ativar tema claro' : 'Ativar tema escuro'} onClick={toggleTheme}><Sun className="theme-icon-sun" size={19} /><Moon className="theme-icon-moon" size={19} /></button><a href="#cotacao" className="header-cta" onClick={() => quote('seguro', 'guindastes')}>Solicitar cotação</a><button ref={menuToggle} className="icon-button menu-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={25} /> : <List size={25} />}</button></div>
       </div>
       {menuOpen && <nav className="mobile-nav container" id="mobile-nav" aria-label="Navegação no celular">{links.map(([label, id]) => <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>{label}</a>)}<a href="#cotacao" onClick={() => quote('seguro', 'guindastes')}>Solicitar cotação</a></nav>}
     </header>

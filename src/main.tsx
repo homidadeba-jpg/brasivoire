@@ -1,10 +1,6 @@
 import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import '@fontsource/montserrat/latin-500.css';
-import '@fontsource/montserrat/latin-600.css';
-import '@fontsource/montserrat/latin-700.css';
-import '@fontsource/montserrat/latin-800.css';
-import '@fontsource/montserrat/latin-800-italic.css';
+import './fonts.css';
 import './styles.css';
 import './hero.css';
 import './editorial.css';

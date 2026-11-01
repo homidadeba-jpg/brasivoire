@@ -88,3 +88,7 @@
 }
 @media(max-width:359px){.site-root .crane-heading h2{font-size:35px}.site-root .consortium-copy h2,.site-root .quote-copy h2{font-size:30px}.site-root .service-bar a{font-size:11px}.site-root .photo-caption h3{font-size:13px}}
 
+/* Theme and its icon are resolved before React hydrates the document. */
+.theme-icon-sun{display:none}
+:root[data-theme=dark] .theme-icon-sun{display:block}
+:root[data-theme=dark] .theme-icon-moon{display:none}

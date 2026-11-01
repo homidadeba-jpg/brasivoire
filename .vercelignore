@@ -6,3 +6,6 @@ playwright-report
 node_modules
 assets
 tests
+.env
+.env.local
+.env*.local

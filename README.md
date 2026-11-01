@@ -39,7 +39,7 @@ Não são carregados analytics, mapas, fontes ou imagens de terceiros em tempo d
 - Pátio residencial: Matheus Bertelli / Pexels, https://www.pexels.com/photo/glass-wall-of-modern-house-13872621/
 - A arte com textos da referência não é publicada como imagem; o conteúdo é HTML real.
 
-Fotografias ilustrativas, sem representação de patrimônio ou instalações da empresa. Fonte Montserrat: SIL Open Font License, distribuída por `@fontsource/montserrat`. Pesos 500, 600, 700 e 800, com 800 itálico na faixa do Hero. Ícones Phosphor: MIT.
+As fotografias de guindaste, imóveis e veículos ilustram as modalidades e foram fornecidas pelo usuário. O detalhe de gancho e cabos em ambiente industrial é uma fotografia de Cemrecan Yurtman, Pexels 29224569, licenciada para uso no site. Nenhuma foto do site antigo é utilizada. Fonte Montserrat: SIL Open Font License, distribuída por `@fontsource/montserrat`. Pesos 500, 600, 700 e 800, com 800 itálico na faixa do Hero. Ícones Phosphor: MIT.
 
 ## Verificação
 
@@ -60,9 +60,9 @@ Projeto: `brasivoire`. A URL pública da produção é obtida de `VERCEL_PROJECT
 
 ## Fotografia editorial
 
-Revisão visual autorizada para reduzir texto e dar mais espaço à fotografia. O Hero permanece preservado. As fotos de automóvel, residência, ambiente empresarial e família são ilustrativas, hospedadas localmente em WebP e carregadas sob demanda. Não representam instalações, clientes ou patrimônio da corretora. Cada arquivo novo usa hash de conteúdo no nome. As fotos entram com ampliação suave ligada ao scroll, sem reiniciar opacidade; movimento reduzido mantém o enquadramento estático.
+Revisão visual autorizada para reduzir texto e dar mais espaço à fotografia. O Hero permanece preservado. As fotos de automóvel e residência são as fornecidas pelo usuário. A apresentação institucional usa uma fotografia de detalhe de içamento, relacionada à especialidade da corretora. Cada arquivo novo usa hash de conteúdo no nome. As fotos entram com ampliação suave ligada ao scroll, sem reiniciar opacidade; movimento reduzido mantém o enquadramento estático.
 
-Fontes Unsplash: automóvel `photo-1503376780353-7e6692767b70`; família `photo-1511895426328-dc8714191300`; ambiente empresarial `photo-1497366754035-f200968a6e72`.
+As fotografias genéricas usadas em revisões anteriores foram substituídas. O transporte de cargas é ilustrado por uma fotografia de Boris Hamer, Pexels 15595843. As fontes e decisões editoriais sobre a história, serviços, parceiros, contatos e fotografia estão em `docs/official-content.md`.
 
 
 Fotos residenciais substituídas conforme solicitação: fachada paulistana de Emanuel Pedro / Pexels (https://www.pexels.com/photo/charming-urban-residential-facade-in-sao-paulo-34105082/) e pátio de Matheus Bertelli / Pexels (https://www.pexels.com/photo/glass-wall-of-modern-house-13872621/). As imagens anteriores foram removidas da pasta pública, preservando o histórico Git.

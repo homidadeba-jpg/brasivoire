@@ -13,6 +13,7 @@ test('site institucional, formulários e acessibilidade desktop', async ({ page 
   await page.evaluate(() => document.fonts.ready);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Proteção completapara o seu patrimônioe suas operações.');
   await expect(page.locator('#lead-service')).toHaveValue('guindastes');
+  await expect(page.locator('#parceiros li')).toHaveCount(9);
   for (const image of await page.locator('img').all()) {
     await image.scrollIntoViewIfNeeded();
     await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
@@ -21,6 +22,7 @@ test('site institucional, formulários e acessibilidade desktop', async ({ page 
   await page.screenshot({ path: '.artifacts/desktop.png', fullPage: true });
   await page.locator('#seguros').screenshot({ path: '.artifacts/insurance-desktop.png' });
   await page.locator('#sobre').screenshot({ path: '.artifacts/about-desktop.png' });
+  await page.locator('#parceiros').screenshot({ path: '.artifacts/partners-desktop.png' });
   await page.locator('.automobile-photo').screenshot({ path: '.artifacts/provided-car-desktop.png' });
   await page.locator('.residential-photo').screenshot({ path: '.artifacts/provided-house-desktop.png' });
   await page.locator('.consortium-gallery').screenshot({ path: '.artifacts/provided-consortium-desktop.png' });
@@ -41,6 +43,15 @@ test('site institucional, formulários e acessibilidade desktop', async ({ page 
   await expect.poll(() => popup.url()).toContain('https://wa.me/5519991001577');
   expect(new URL(popup.url()).searchParams.get('text')).toContain('Modalidade: Guindastes');
   expect(new URL(popup.url()).searchParams.get('text')).toContain('Cidade/UF: Campinas, SP');
+  await popup.close();
+  await page.evaluate(() => window.dispatchEvent(new Event('pageshow')));
+  await page.getByRole('link', { name: 'Cotar seguro de transporte de cargas', exact: true }).click();
+  await expect(page.locator('#lead-service')).toHaveValue('transporte');
+  popupPromise = page.waitForEvent('popup');
+  await page.getByRole('button', { name: 'Continuar no WhatsApp' }).click();
+  popup = await popupPromise;
+  await expect.poll(() => popup.url()).toContain('https://wa.me/5519991001577');
+  expect(new URL(popup.url()).searchParams.get('text')).toContain('Modalidade: Transporte de cargas');
   await popup.close();
   await page.evaluate(() => window.dispatchEvent(new Event('pageshow')));
   await page.getByRole('button', { name: 'Simular consórcio', exact: true }).click();
@@ -83,6 +94,14 @@ test('responsividade, temas e rodapé', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Navegação no celular' }).getByRole('link', { name: 'Consórcios', exact: true }).click();
   await expect(page.getByRole('navigation', { name: 'Navegação no celular' })).toHaveCount(0);
   await expect(page.locator('#consorcios')).toBeInViewport();
+  for (const section of ['seguros', 'sobre', 'parceiros']) {
+    const element = page.locator(`#${section}`);
+    await element.scrollIntoViewIfNeeded();
+    for (const image of await element.locator('img').all()) {
+      await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+    }
+    await element.screenshot({ path: `.artifacts/${section}-mobile.png` });
+  }
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: '.artifacts/mobile.png', fullPage: true });
   await page.locator('.consortium-gallery').screenshot({ path: '.artifacts/provided-consortium-mobile.png' });
@@ -112,6 +131,14 @@ test('conteúdo pré-renderizado e configuração oficial', async ({ request }) 
   expect(html).toContain('Seguro para guindastes');
   expect(html).toMatch(/(?:noindex, nofollow|index, follow)/);
   expect(html).not.toContain('<!--app-html-->');
+  expect(html).toContain('Desde 2002');
+  expect(html).toContain('Parceiros da Brasivoire.');
+  expect(html).toContain('Munckmaq Transportes');
+  expect(html).not.toContain('patricia-castro');
+  expect(html).not.toContain('patric-castro');
+  expect(html).toContain('brasivoire@uol.com.br');
+  expect(html).toContain('Alberto Sarmento, 577');
+  expect(html).not.toContain('brasivoire-empresa-8901a0f1.webp');
   const file = await readFile('src/company.ts', 'utf8');
   expect(file).toContain('VITE_BRASIVOIRE_WHATSAPP');
 });

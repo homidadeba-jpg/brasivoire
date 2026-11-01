@@ -98,7 +98,7 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
       }).from('.crane-heading', { y: 22 }, 0)
         .from('.crane-content', { y: 18 }, 0);
 
-      const selectors = '.about-content h2, .about-summary, .section-heading, .insurance-story, .insurance-specialties, .consortium-copy, .consortium-gallery, .quote-copy, .lead-form, .footer-main';
+      const selectors = '.about-content h2, .about-summary, .partners-heading, .partners-list, .section-heading, .insurance-story, .insurance-specialties, .consortium-copy, .consortium-gallery, .quote-copy, .lead-form, .footer-main';
       gsap.utils.toArray<HTMLElement>(root.querySelectorAll(selectors)).forEach(element => {
         gsap.from(element, {
           y: 18, ease: 'none',

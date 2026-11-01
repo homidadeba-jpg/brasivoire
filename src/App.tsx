@@ -19,7 +19,6 @@ import { LockKey } from '@phosphor-icons/react/dist/csr/LockKey';
 import { CaretDown } from '@phosphor-icons/react/dist/csr/CaretDown';
 import { company, insuranceServices, consortiumServices } from './company';
 import Hero from './Hero';
-import { cranePhoto } from './heroMedia';
 import { editorialMedia } from './editorialMedia';
 import { useSiteMotion } from './useSiteMotion';
 
@@ -145,8 +144,8 @@ export default function App() {
       <Hero onQuote={() => quote('seguro', 'guindastes')} />
       <nav className="container service-bar" aria-label="Principais soluções Brasivoire"><a href="#guindastes"><Crane size={23} />Seguros para guindastes</a><a href="#consorcios"><HouseLine size={23} />Consórcios de imóveis e automóveis</a></nav>
       <section className="container crane-section section" id="guindastes" aria-labelledby="crane-title">
-        <div className="crane-photo"><img src={cranePhoto} alt="Guindaste móvel amarelo da fotografia fornecida pela Brasivoire" width="720" height="1280" loading="lazy" decoding="async" /></div>
-        <div className="crane-content"><h2 id="crane-title">Seguro para guindastes.</h2><p className="crane-summary">Especialização em guindastes, com atenção ao equipamento e à sua operação. Conte sobre o que você precisa proteger e solicite uma cotação.</p><a className="button button-primary" href="#cotacao" onClick={() => quote('seguro', 'guindastes')}>Cotar seguro de guindastes</a><p className="fine-print">As condições e coberturas serão apresentadas na cotação.</p></div>
+        <div className="crane-heading"><h2 id="crane-title">Seguro para guindastes.</h2></div>
+        <div className="crane-content"><p className="crane-summary">Especialização em guindastes, com atenção ao equipamento e à sua operação. Conte sobre o que você precisa proteger e solicite uma cotação.</p><a className="button button-primary" href="#cotacao" onClick={() => quote('seguro', 'guindastes')}>Cotar seguro de guindastes</a><p className="fine-print">As condições e coberturas serão apresentadas na cotação.</p></div>
       </section>
       <section className="consortium-section section" id="consorcios" aria-labelledby="consortium-title"><div className="container consortium-inner"><div className="consortium-copy"><h2 id="consortium-title">Consórcios para<br /><span>o seu próximo passo.</span></h2><p>Imóveis e automóveis. Escolha seu objetivo e solicite uma simulação à Brasivoire.</p><a href="#cotacao" className="button button-secondary" onClick={() => quote('consorcio')}>Simular consórcio</a></div><div className="consortium-gallery"><a href="#cotacao" className="consortium-image photo-frame consortium-house-photo" onClick={() => quote('consorcio', 'imovel')} aria-label="Simular consórcio para uma casa"><img className="editorial-photo subject-photo" src={editorialMedia.consorcio} alt="Casa de dois pavimentos ao entardecer, com madeira, pedra e iluminação acolhedora" width="803" height="1280" loading="lazy" decoding="async" /></a><a href="#cotacao" className="photo-frame consortium-auto-photo" onClick={() => quote('consorcio', 'auto')} aria-label="Simular consórcio para um automóvel"><img className="editorial-photo subject-photo" src={editorialMedia.consorcioAuto} alt="Toyota SW4 branco, visto de frente e de lado em uma rua residencial" width="1030" height="1280" loading="lazy" decoding="async" /></a></div></div></section>
       <section className="insurance-section section" id="seguros" aria-labelledby="insurance-title"><div className="container">

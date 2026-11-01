@@ -2,7 +2,7 @@
 import { cranePhoto } from './heroMedia';
 
 export default function Hero({ onQuote }: { onQuote: () => void }) {
-  return <section className="crane-hero" id="inicio" aria-labelledby="hero-title">
+  return <section className="crane-hero" id="inicio" aria-labelledby="hero-title" data-motion-state="static">
     <img className="hero-photograph" src={cranePhoto} alt="Guindaste móvel amarelo com lança elevada, preservado na fotografia original enviada pela Brasivoire" width="720" height="1280" fetchPriority="high" />
     <div className="hero-feather" aria-hidden="true" />
     <div className="hero-bottom-shade" aria-hidden="true" />

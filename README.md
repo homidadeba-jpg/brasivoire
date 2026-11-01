@@ -79,3 +79,11 @@ Os cortes são janelas de enquadramento definidas em `src/providedPhotos.css` e 
 A hierarquia prioriza seguros de guindastes e, em seguida, consórcios. Os demais seguros e a apresentação institucional permanecem acessíveis. Cabeçalho, navegação principal, formulário e rodapé seguem essa ordem. O CTA principal seleciona guindastes; as fotos e a chamada de consórcios selecionam a modalidade correspondente.
 
 Foram retirados a seção repetida de diferenciais, os convites redundantes do rodapé, a duplicação de guindastes na lista de outros seguros e as instruções repetidas antes do formulário. A galeria de consórcios não sobrepõe fotografias. No desktop são dois enquadramentos quadrados; no mobile, duas imagens em sequência. As quatro fotos fornecidas e o Hero permanecem no projeto. Os controles compactos têm área de toque mínima de 44 px e os campos têm tipografia legível no celular. Não há contadores, indicadores numéricos promocionais ou novas promessas de cobertura.
+
+## Profundidade no Hero e fotografias únicas
+
+A entrada do título parte da região do caminhão na fotografia original e atravessa a lança até chegar à posição final. A descrição emerge do braço do guindaste para o céu livre. Ambos permanecem opacos durante o movimento: o equipamento na camada de primeiro plano oculta fisicamente os trechos de texto sobrepostos. As posições iniciais são projetadas a partir de coordenadas da foto original para o object-fit atual, mantendo fundo e máscara alinhados em desktop e mobile.
+
+A cena tem duração limitada, sem rotação ou deformação do equipamento. Uma mudança de largura conclui a entrada, e retornar à seção não reinicia a animação. Movimento reduzido mantém a composição final estática. Listeners, timelines e tentativas assíncronas são limpos ao sair.
+
+A fotografia do guindaste aparece somente no Hero, em duas camadas coincidentes que formam uma única composição. A seção da especialidade foi reorganizada com título, texto e CTA, sem repetir a foto. Nenhuma outra fotografia do conteúdo é reutilizada.

@@ -26,6 +26,10 @@ test('Hero 9:16, camadas originais, tipografia e CTA', async ({ page }) => {
     await hero.screenshot({ path: `.artifacts/hero-${width}.png` });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
+  const photos = await page.locator('main > section:not(.crane-hero) img').evaluateAll(images => images.map(image => image.getAttribute('src')));
+  expect(new Set(photos).size).toBe(photos.length);
+  const heroPhoto = await page.locator('.hero-photograph').first().getAttribute('src');
+  expect(photos).not.toContain(heroPhoto);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('link', { name: 'Solicitar Cotação', exact: true }).click();
   await expect(page.locator('#cotacao')).toBeInViewport();
@@ -37,7 +41,14 @@ test('GSAP: entrada, rolagem reversível e retorno sem recomeçar', async ({ pag
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'no-preference' });
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'entering');
+  await page.waitForTimeout(750);
+  await expect(page.locator('.hero-title-entry')).toHaveCSS('opacity', '1');
+  await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-mobile-moving.png' });
+  await page.waitForTimeout(400);
+  await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-mobile-emerging.png' });
+  await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'complete');
   await page.evaluate(() => document.fonts.ready);
   await expect.poll(() => page.locator('.hero-title-entry').evaluate(el => Number(getComputedStyle(el).opacity)), { timeout: 10000 }).toBe(1);
   await expect(page.locator('.hero-title-entry')).toBeVisible();
@@ -49,5 +60,16 @@ test('GSAP: entrada, rolagem reversível e retorno sem recomeçar', async ({ pag
   await expect(page.locator('.hero-title-entry')).toHaveCSS('opacity', '1');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(page.locator('.hero-title-entry')).toHaveCSS('opacity', '1');
+
+  await page.setViewportSize({ width: 1440, height: 980 });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'entering');
+  await page.waitForTimeout(800);
+  await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-desktop-moving.png' });
+  await page.waitForTimeout(400);
+  await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-desktop-emerging.png' });
+  await page.setViewportSize({ width: 1024, height: 844 });
+  await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'complete');
   expect(errors).toEqual([]);
 });

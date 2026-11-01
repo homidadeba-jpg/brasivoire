@@ -26,8 +26,8 @@ const icons = { car: Car, house: HouseLine, buildings: Buildings, heart: Heart, 
 type RequestType = 'seguro' | 'consorcio';
 type Choice = { type: RequestType; service: string };
 
-function Brand() {
-  return <a className="brand" href="#inicio" aria-label="Brasivoire Corretora de Seguros, início"><img src="/brand/brasivoire-logo.png" alt="" width="64" height="64" /><span className="wordmark">brasivoire<span>corretora de seguros</span></span></a>;
+function Brand({ name = 'brasivoire' }: { name?: string }) {
+  return <a className="brand" href="#inicio" aria-label="Brasivoire Corretora de Seguros, início"><img src="/brand/brasivoire-logo.png" alt="" width="64" height="64" /><span className="wordmark">{name}<span>corretora de seguros</span></span></a>;
 }
 
 function useOpeningFeedback() {
@@ -141,7 +141,7 @@ export default function App() {
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <header className="site-header">
       <div className="container header-inner">
-        <Brand />
+        <Brand name="Brasivoire" />
         <nav aria-label="Navegação principal" className="desktop-nav">{links.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav>
         <div className="header-actions"><button className="icon-button theme-toggle" aria-label={dark ? 'Ativar tema claro' : 'Ativar tema escuro'} onClick={toggleTheme}><Sun className="theme-icon-sun" size={19} /><Moon className="theme-icon-moon" size={19} /></button><a href="#cotacao" className="header-cta" onClick={() => quote('seguro', 'guindastes')}>Solicitar cotação</a><button ref={menuToggle} className="icon-button menu-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={25} /> : <List size={25} />}</button></div>
       </div>

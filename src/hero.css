@@ -19,7 +19,7 @@
 .hero-auxiliary strong{font-weight:600}
 .hero-cta-position{position:absolute;z-index:4;left:max(56px,calc((100% - 1280px)/2));top:84.1%;width:330px}
 .hero-quote-button{width:100%;min-height:57px;display:flex;align-items:center;justify-content:center;gap:24px;padding:14px 25px;border-radius:999px;background:var(--hero-accent);color:#092a4b;font-family:Montserrat,sans-serif;font-size:18px;line-height:1.25;font-weight:700;letter-spacing:-.6px;transition:background .25s ease,box-shadow .25s ease}
-.hero-quote-button:hover{background:#ffd037;box-shadow:0 4px 20px #092a4b15}.hero-quote-button:hover svg{transform:translateX(4px)}.hero-quote-button:focus-visible{outline:3px solid #092a4b;outline-offset:5px}
+.hero-quote-button:hover{background:#ffd037;box-shadow:0 4px 20px #092a4b15}.hero-quote-button:focus-visible{outline:3px solid #092a4b;outline-offset:5px}
 /* GSAP owns all scroll transforms. Remove the earlier CSS photo animations. */
 .crane-photo img,.consortium-image img{animation:none!important}
 @media(min-width:768px){:root[data-theme=dark] .crane-hero{--hero-text:#fff;--hero-surface:#102238}}
@@ -45,7 +45,6 @@
  .hero-auxiliary strong{font-weight:600}
  .hero-cta-position{left:21.1%;top:88.6%;width:57.8%}
  .hero-quote-button{min-height:44px;height:9.72cqw;padding:1.5cqw 4cqw;gap:3.7cqw;font-size:3.9cqw;line-height:1.2;letter-spacing:-.11cqw;font-weight:700}
- .hero-quote-button svg{width:4.7cqw;height:4.7cqw}
 }
-@media(prefers-reduced-motion:reduce){.hero-quote-button{transition:none}.hero-quote-button:hover svg{transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-quote-button{transition:none}}
 

@@ -27,7 +27,6 @@
 .site-root .insurance-photo-grid{grid-template-columns:1fr 1fr;gap:36px}
 .site-root .insurance-story-home{margin-top:0}
 .site-root .photo-caption{align-items:center;flex-direction:row;padding-top:17px}
-.site-root .photo-caption>svg{margin-left:auto;width:20px;height:20px}
 .site-root .insurance-specialties{grid-template-columns:1fr 1fr 1fr;gap:30px;margin-top:29px}
 .site-root .insurance-specialties a{font-size:12px;gap:12px;min-height:62px}
 .site-root .insurance-specialties a svg{width:21px}
@@ -49,6 +48,10 @@
 .site-root .footer-column a{min-height:32px}
 .site-root .privacy-trigger{min-height:32px}
 .site-root input,.site-root textarea{caret-color:var(--green)}
+.site-root .header-cta{min-height:44px;justify-content:center}
+.site-root .header-cta:hover{background:var(--tint)}
+.site-root .service-bar a:hover,.site-root .service-bar a:focus-visible,.site-root .insurance-specialties a:hover span:not(.sr-only),.site-root .insurance-specialties a:focus-visible span:not(.sr-only),.site-root .insurance-story:hover h3,.site-root .insurance-story:focus-visible h3{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+.site-root .footer-column .whatsapp-link{min-width:min(152px,100%)}
 @media(max-width:1100px){.site-root .crane-section{gap:46px}.site-root .consortium-inner{gap:35px}.site-root .consortium-gallery{gap:12px}.site-root .consortium-auto-photo{margin-top:35px}.site-root .crane-content .crane-summary{font-size:13px}.site-root .crane-content .button{font-size:12px;padding-inline:18px;gap:15px}.site-root .insurance-specialties{gap:20px}.site-root .insurance-specialties a{font-size:11px;gap:8px}.site-root .about.about-visual{gap:40px}.site-root .privacy-note{font-size:10px}}
 @media(max-width:767px){
  .site-root .service-bar{grid-template-columns:1fr;gap:0;padding-block:4px}

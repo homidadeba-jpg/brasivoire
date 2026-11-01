@@ -1,4 +1,4 @@
-import { ArrowRight } from '@phosphor-icons/react/dist/csr/ArrowRight';
+
 import { cranePhoto } from './heroMedia';
 
 export default function Hero({ onQuote }: { onQuote: () => void }) {
@@ -11,7 +11,7 @@ export default function Hero({ onQuote }: { onQuote: () => void }) {
     <div className="hero-description-depth"><p className="hero-reference-description hero-description-entry">Especialização em seguros para guindastes. Consórcios para imóveis e automóveis.</p></div>
     <img className="hero-photograph hero-foreground" src={cranePhoto} alt="" aria-hidden="true" width="720" height="1280" fetchPriority="high" />
     <div className="hero-auxiliary hero-bottom-entry" aria-label="Mais segurança, mais planejamento, mais resultados"><span>Mais<br /><strong>segurança</strong></span><span>Mais<br /><strong>planejamento</strong></span><span>Mais<br /><strong>resultados</strong></span></div>
-    <div className="hero-cta-position"><div className="hero-cta-entry"><a className="hero-quote-button" href="#cotacao" onClick={onQuote}>Solicitar Cotação<ArrowRight size={25} aria-hidden="true" /></a></div></div>
+    <div className="hero-cta-position"><div className="hero-cta-entry"><a className="hero-quote-button" href="#cotacao" onClick={onQuote}>Solicitar Cotação</a></div></div>
   </section>;
 }
 

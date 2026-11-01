@@ -31,7 +31,7 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
         scrollTrigger: { trigger: '.crane-hero', start: 'top top', end: 'bottom top', scrub: .6 },
       });
 
-      const selectors = '.about-content h2, .about-summary, .section-heading, .insurance-story, .insurance-specialties, .crane-photo, .crane-content, .consortium-copy, .consortium-image, .difference-intro, .difference-grid article, .quote-copy, .lead-form, .footer-main';
+      const selectors = '.about-content h2, .about-summary, .section-heading, .insurance-story, .insurance-specialties, .crane-photo, .crane-content, .consortium-copy, .consortium-gallery, .difference-intro, .difference-grid article, .quote-copy, .lead-form, .footer-main';
       gsap.utils.toArray<HTMLElement>(root.querySelectorAll(selectors)).forEach(element => {
         gsap.from(element, {
           y: 26, ease: 'none',
@@ -44,7 +44,8 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
       root.querySelectorAll<HTMLElement>('.photo-frame').forEach(frame => {
         const image = frame.querySelector<HTMLImageElement>('.editorial-photo');
         if (!image) return;
-        gsap.fromTo(image, { scale: 1.09, yPercent: 2 }, {
+        const preserveSubject = image.classList.contains('subject-photo');
+        gsap.fromTo(image, { scale: preserveSubject ? 1.025 : 1.09, yPercent: preserveSubject ? 0 : 2 }, {
           scale: 1, yPercent: 0, ease: 'none',
           scrollTrigger: { trigger: frame, start: 'clamp(top 98%)', end: 'clamp(top 35%)', scrub: .7, invalidateOnRefresh: true },
         });

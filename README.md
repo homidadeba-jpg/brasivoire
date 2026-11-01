@@ -67,3 +67,9 @@ Fontes Unsplash: automóvel `photo-1503376780353-7e6692767b70`; família `photo-
 
 Fotos residenciais substituídas conforme solicitação: fachada paulistana de Emanuel Pedro / Pexels (https://www.pexels.com/photo/charming-urban-residential-facade-in-sao-paulo-34105082/) e pátio de Matheus Bertelli / Pexels (https://www.pexels.com/photo/glass-wall-of-modern-house-13872621/). As imagens anteriores foram removidas da pasta pública, preservando o histórico Git.
 
+
+## Fotografias fornecidas pela empresa
+
+As quatro imagens enviadas nesta conversa substituem as fotos anteriores de automóvel e residência. As versões originais estão preservadas em `assets/company/` com os nomes dos anexos. As cópias públicas são WebP com hash de conteúdo, sem ampliar os originais nem recriar fachadas ou veículos. A casa térrea e o Jeep aparecem em seguros; a casa de dois pavimentos e o Toyota compõem a galeria de consórcios. Não há afirmação de que sejam bens segurados ou de clientes da corretora.
+
+Os cortes são janelas de enquadramento definidas em `src/providedPhotos.css`: proporção 4:3 para os seguros, posição focal individual e composição de duas fotos nos consórcios. Os originais mantêm todos os pixels e a geometria. A animação dessas fotos usa somente 2,5% de ampliação, sem deslocamento vertical interno, para manter os assuntos inteiros durante a entrada. O movimento é reversível e desativado com movimento reduzido. A referência de autoria visível no original da casa de dois pavimentos permanece no arquivo preservado.

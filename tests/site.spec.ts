@@ -20,8 +20,15 @@ test('site institucional, formulários e acessibilidade desktop', async ({ page 
   await page.screenshot({ path: '.artifacts/desktop.png', fullPage: true });
   await page.locator('#seguros').screenshot({ path: '.artifacts/insurance-desktop.png' });
   await page.locator('#sobre').screenshot({ path: '.artifacts/about-desktop.png' });
+  await page.locator('.automobile-photo').screenshot({ path: '.artifacts/provided-car-desktop.png' });
+  await page.locator('.residential-photo').screenshot({ path: '.artifacts/provided-house-desktop.png' });
+  await page.locator('.consortium-gallery').screenshot({ path: '.artifacts/provided-consortium-desktop.png' });
   const light = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(light.violations).toEqual([]);
+  await page.getByRole('link', { name: 'Simular consórcio para um automóvel', exact: true }).click();
+  await expect(page.locator('#lead-service')).toHaveValue('auto');
+  await page.getByRole('link', { name: 'Simular consórcio para uma casa', exact: true }).click();
+  await expect(page.locator('#lead-service')).toHaveValue('imovel');
   await page.getByRole('link', { name: 'Conversar sobre guindastes' }).click();
   await expect(page.locator('#lead-service')).toHaveValue('guindastes');
   await page.getByLabel('Seu nome', { exact: true }).fill('Teste de formulário');
@@ -77,6 +84,7 @@ test('responsividade, temas e rodapé', async ({ page }) => {
   await expect(page.locator('#consorcios')).toBeInViewport();
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: '.artifacts/mobile.png', fullPage: true });
+  await page.locator('.consortium-gallery').screenshot({ path: '.artifacts/provided-consortium-mobile.png' });
   const mobile = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(mobile.violations).toEqual([]);
   await page.getByRole('button', { name: 'Ativar tema escuro' }).click();

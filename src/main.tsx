@@ -8,6 +8,7 @@ import '@fontsource/montserrat/latin-800-italic.css';
 import './styles.css';
 import './hero.css';
 import './editorial.css';
+import './providedPhotos.css';
 import App from './App';
 const root = document.getElementById('root')!;
 if (root.querySelector('header')) hydrateRoot(root, <React.StrictMode><App /></React.StrictMode>);

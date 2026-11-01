@@ -57,3 +57,9 @@ A fotografia e a máscara usam nomes com hash. O arquivo original de referência
 ## Vercel
 
 Projeto: `brasivoire`. A URL pública da produção é obtida de `VERCEL_PROJECT_PRODUCTION_URL` (ou `SITE_URL`, quando definido explicitamente) para gerar canonical, sitemap e dados estruturados. Builds locais sem domínio continuam com noindex. Não é necessário servidor de aplicação ou serviço de banco de dados.
+
+## Fotografia editorial
+
+Revisão visual autorizada para reduzir texto e dar mais espaço à fotografia. O Hero permanece preservado. As fotos de automóvel, residência, ambiente empresarial e família são ilustrativas, hospedadas localmente em WebP e carregadas sob demanda. Não representam instalações, clientes ou patrimônio da corretora. Cada arquivo novo usa hash de conteúdo no nome. As fotos entram com ampliação suave ligada ao scroll, sem reiniciar opacidade; movimento reduzido mantém o enquadramento estático.
+
+Fontes Unsplash: automóvel `photo-1503376780353-7e6692767b70`; residência `photo-1600596542815-ffad4c1539a9`; família `photo-1511895426328-dc8714191300`; ambiente empresarial `photo-1497366754035-f200968a6e72`.

@@ -31,11 +31,22 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
         scrollTrigger: { trigger: '.crane-hero', start: 'top top', end: 'bottom top', scrub: .6 },
       });
 
-      const selectors = '.about-content h2, .about-columns, .section-heading, .insurance-item, .crane-photo, .crane-content, .consortium-copy, .consortium-image, .differences > h2, .difference-grid article, .quote-copy, .lead-form, .footer-main';
+      const selectors = '.about-content h2, .about-summary, .section-heading, .insurance-story, .insurance-specialties, .crane-photo, .crane-content, .consortium-copy, .consortium-image, .difference-intro, .difference-grid article, .quote-copy, .lead-form, .footer-main';
       gsap.utils.toArray<HTMLElement>(root.querySelectorAll(selectors)).forEach(element => {
         gsap.from(element, {
           y: 26, ease: 'none',
           scrollTrigger: { trigger: element, start: 'clamp(top 98%)', end: 'clamp(top 67%)', scrub: .55, invalidateOnRefresh: true },
+        });
+      });
+
+      // O quadro mantém o espaço reservado; só os pixels da foto se movem.
+      // A rolagem devolve a foto ao enquadramento original sem reiniciar opacidade.
+      root.querySelectorAll<HTMLElement>('.photo-frame').forEach(frame => {
+        const image = frame.querySelector<HTMLImageElement>('.editorial-photo');
+        if (!image) return;
+        gsap.fromTo(image, { scale: 1.09, yPercent: 2 }, {
+          scale: 1, yPercent: 0, ease: 'none',
+          scrollTrigger: { trigger: frame, start: 'clamp(top 98%)', end: 'clamp(top 35%)', scrub: .7, invalidateOnRefresh: true },
         });
       });
 

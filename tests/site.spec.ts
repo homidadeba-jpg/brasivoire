@@ -18,6 +18,8 @@ test('site institucional, formulários e acessibilidade desktop', async ({ page 
   }
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: '.artifacts/desktop.png', fullPage: true });
+  await page.locator('#seguros').screenshot({ path: '.artifacts/insurance-desktop.png' });
+  await page.locator('#sobre').screenshot({ path: '.artifacts/about-desktop.png' });
   const light = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(light.violations).toEqual([]);
   await page.getByRole('link', { name: 'Conversar sobre guindastes' }).click();
@@ -97,7 +99,7 @@ test('responsividade, temas e rodapé', async ({ page }) => {
 
 test('conteúdo pré-renderizado e configuração oficial', async ({ request }) => {
   const html = await (await request.get('/')).text();
-  expect(html).toContain('Uma especialidade');
+  expect(html).toContain('Especialização em guindastes');
   expect(html).toContain('Seguro para guindastes');
   expect(html).toMatch(/(?:noindex, nofollow|index, follow)/);
   expect(html).not.toContain('<!--app-html-->');

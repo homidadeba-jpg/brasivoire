@@ -12,6 +12,7 @@ test('site institucional, formulários e acessibilidade desktop', async ({ page 
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Proteção completapara o seu patrimônioe suas operações.');
+  await expect(page.locator('#lead-service')).toHaveValue('guindastes');
   for (const image of await page.locator('img').all()) {
     await image.scrollIntoViewIfNeeded();
     await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
@@ -29,7 +30,7 @@ test('site institucional, formulários e acessibilidade desktop', async ({ page 
   await expect(page.locator('#lead-service')).toHaveValue('auto');
   await page.getByRole('link', { name: 'Simular consórcio para uma casa', exact: true }).click();
   await expect(page.locator('#lead-service')).toHaveValue('imovel');
-  await page.getByRole('link', { name: 'Conversar sobre guindastes' }).click();
+  await page.getByRole('link', { name: 'Cotar seguro de guindastes', exact: true }).click();
   await expect(page.locator('#lead-service')).toHaveValue('guindastes');
   await page.getByLabel('Seu nome', { exact: true }).fill('Teste de formulário');
   await page.getByLabel('WhatsApp com DDD').fill('(19) 99999-1234');

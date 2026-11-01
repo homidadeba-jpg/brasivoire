@@ -31,10 +31,16 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
         scrollTrigger: { trigger: '.crane-hero', start: 'top top', end: 'bottom top', scrub: .6 },
       });
 
-      const selectors = '.about-content h2, .about-summary, .section-heading, .insurance-story, .insurance-specialties, .crane-photo, .crane-content, .consortium-copy, .consortium-gallery, .difference-intro, .difference-grid article, .quote-copy, .lead-form, .footer-main';
+      gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: { trigger: '#guindastes', start: 'clamp(top 95%)', end: 'clamp(top 35%)', scrub: .65 },
+      }).from('.crane-photo', { y: 32 }, 0)
+        .from('.crane-content', { y: 18 }, 0);
+
+      const selectors = '.about-content h2, .about-summary, .section-heading, .insurance-story, .insurance-specialties, .consortium-copy, .consortium-gallery, .quote-copy, .lead-form, .footer-main';
       gsap.utils.toArray<HTMLElement>(root.querySelectorAll(selectors)).forEach(element => {
         gsap.from(element, {
-          y: 26, ease: 'none',
+          y: 18, ease: 'none',
           scrollTrigger: { trigger: element, start: 'clamp(top 98%)', end: 'clamp(top 67%)', scrub: .55, invalidateOnRefresh: true },
         });
       });

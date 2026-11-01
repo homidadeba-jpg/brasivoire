@@ -36,7 +36,7 @@ Não são carregados analytics, mapas, fontes ou imagens de terceiros em tempo d
 ## Fotografia provisória
 
 - Hero e seção de guindastes: fotografia original fornecida pelo usuário, 720 × 1280, SHA-256 iniciado em e37fa0dc.
-- Interior: Unsplash, https://images.unsplash.com/photo-1600210492486-724fe5c67fb0
+- Pátio residencial: Matheus Bertelli / Pexels, https://www.pexels.com/photo/glass-wall-of-modern-house-13872621/
 - A arte com textos da referência não é publicada como imagem; o conteúdo é HTML real.
 
 Fotografias ilustrativas, sem representação de patrimônio ou instalações da empresa. Fonte Montserrat: SIL Open Font License, distribuída por `@fontsource/montserrat`. Pesos 500, 600, 700 e 800, com 800 itálico na faixa do Hero. Ícones Phosphor: MIT.
@@ -62,4 +62,8 @@ Projeto: `brasivoire`. A URL pública da produção é obtida de `VERCEL_PROJECT
 
 Revisão visual autorizada para reduzir texto e dar mais espaço à fotografia. O Hero permanece preservado. As fotos de automóvel, residência, ambiente empresarial e família são ilustrativas, hospedadas localmente em WebP e carregadas sob demanda. Não representam instalações, clientes ou patrimônio da corretora. Cada arquivo novo usa hash de conteúdo no nome. As fotos entram com ampliação suave ligada ao scroll, sem reiniciar opacidade; movimento reduzido mantém o enquadramento estático.
 
-Fontes Unsplash: automóvel `photo-1503376780353-7e6692767b70`; residência `photo-1600596542815-ffad4c1539a9`; família `photo-1511895426328-dc8714191300`; ambiente empresarial `photo-1497366754035-f200968a6e72`.
+Fontes Unsplash: automóvel `photo-1503376780353-7e6692767b70`; família `photo-1511895426328-dc8714191300`; ambiente empresarial `photo-1497366754035-f200968a6e72`.
+
+
+Fotos residenciais substituídas conforme solicitação: fachada paulistana de Emanuel Pedro / Pexels (https://www.pexels.com/photo/charming-urban-residential-facade-in-sao-paulo-34105082/) e pátio de Matheus Bertelli / Pexels (https://www.pexels.com/photo/glass-wall-of-modern-house-13872621/). As imagens anteriores foram removidas da pasta pública, preservando o histórico Git.
+

@@ -48,22 +48,22 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
         entrance.from('.hero-category', { y: 10, autoAlpha: 0, duration: .7, ease: 'power2.out' }, 0)
           .fromTo(title, {
             x: photoX + 165 * scale - titleBox.left,
-            y: photoY + (desktop ? 390 : 350) * scale - titleBox.top,
+            y: photoY + (desktop ? 390 : 300) * scale - titleBox.top,
             scale: .97,
             opacity: 1,
             transformOrigin: '0% 0%',
-            clipPath: 'inset(0% 100% 0% 0%)',
-          }, { x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.85 }, .12)
+          }, { x: 0, y: 0, scale: 1, duration: 1.05, ease: 'power3.out' }, .12)
+          .fromTo(title, { opacity: 0 }, { opacity: 1, duration: .2, ease: 'none' }, .12)
           .fromTo(description, {
             x: photoX + 290 * scale - descriptionBox.left,
             y: photoY + 470 * scale - descriptionBox.top,
             scale: .98,
             opacity: 1,
             transformOrigin: '0% 0%',
-            clipPath: 'inset(0% 85% 0% 0%)',
-          }, { x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.45 }, .4)
-          .from('.hero-bottom-entry', { y: 12, autoAlpha: 0, duration: .65, ease: 'power2.out' }, 1)
-          .from('.hero-cta-entry', { y: 14, autoAlpha: 0, duration: .7, ease: 'power2.out' }, 1.15);
+          }, { x: 0, y: 0, scale: 1, duration: .85, ease: 'power3.out' }, .55)
+          .fromTo(description, { opacity: 0 }, { opacity: 1, duration: .2, ease: 'none' }, .55)
+          .from('.hero-bottom-entry', { y: 12, autoAlpha: 0, duration: .45, ease: 'power2.out' }, 1)
+          .from('.hero-cta-entry', { y: 14, autoAlpha: 0, duration: .5, ease: 'power2.out' }, 1.1);
       }
 
       // Uma mudança de orientação conclui a entrada em vez de deslocar os
@@ -72,6 +72,14 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
         if (hero.clientWidth !== originalWidth) entrance?.progress(1);
       };
       window.addEventListener('resize', finishOnResize);
+      // Navegadores internos podem suspender a animação ao trocar de aplicativo.
+      // Ao retornar, entrega a composição completa sem deixar texto pela metade.
+      const finishOnReturn = (event: Event) => {
+        if (event.type === 'pageshow' && !(event as PageTransitionEvent).persisted) return;
+        if (document.visibilityState === 'visible' && hero.dataset.motionState === 'entering') entrance?.progress(1);
+      };
+      document.addEventListener('visibilitychange', finishOnReturn);
+      window.addEventListener('pageshow', finishOnReturn);
 
       // A imagem de fundo e o primeiro plano nunca mudam de enquadramento entre si.
       // A entrada e o scroll controlam camadas diferentes de texto.
@@ -128,6 +136,8 @@ export function useSiteMotion(scope: RefObject<HTMLDivElement | null>) {
         running = false;
         entranceFinished = true;
         window.removeEventListener('resize', finishOnResize);
+        document.removeEventListener('visibilitychange', finishOnReturn);
+        window.removeEventListener('pageshow', finishOnReturn);
         entrance?.kill();
         maskImage.src = '';
         hero.dataset.motionState = 'static';

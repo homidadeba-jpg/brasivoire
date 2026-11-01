@@ -45,10 +45,14 @@ test('GSAP: entrada, rolagem reversível e retorno sem recomeçar', async ({ pag
   await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'entering');
   await page.waitForTimeout(750);
   await expect(page.locator('.hero-title-entry')).toHaveCSS('opacity', '1');
+  await expect(page.locator('.hero-title-entry')).toHaveCSS('clip-path', 'none');
+  await expect(page.locator('.hero-description-entry')).toHaveCSS('clip-path', 'none');
   await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-mobile-moving.png' });
   await page.waitForTimeout(400);
   await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-mobile-emerging.png' });
   await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'complete');
+  await expect(page.locator('.hero-title-entry')).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
+  await expect(page.locator('.hero-description-entry')).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
   await page.evaluate(() => document.fonts.ready);
   await expect.poll(() => page.locator('.hero-title-entry').evaluate(el => Number(getComputedStyle(el).opacity)), { timeout: 10000 }).toBe(1);
   await expect(page.locator('.hero-title-entry')).toBeVisible();
@@ -67,7 +71,9 @@ test('GSAP: entrada, rolagem reversível e retorno sem recomeçar', async ({ pag
   await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'entering');
   await page.waitForTimeout(800);
   await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-desktop-moving.png' });
-  await page.waitForTimeout(400);
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+  await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'complete');
+  await expect(page.locator('.hero-title-entry')).toHaveCSS('clip-path', 'none');
   await page.locator('.crane-hero').screenshot({ path: '.artifacts/hero-depth-desktop-emerging.png' });
   await page.setViewportSize({ width: 1024, height: 844 });
   await expect(page.locator('.crane-hero')).toHaveAttribute('data-motion-state', 'complete');

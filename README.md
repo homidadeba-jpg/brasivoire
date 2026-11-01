@@ -82,7 +82,7 @@ Foram retirados a seção repetida de diferenciais, os convites redundantes do r
 
 ## Profundidade no Hero e fotografias únicas
 
-A entrada do título parte do trecho superior da lança e percorre uma distância curta até a posição final, sem subir desde o caminhão. A descrição emerge do braço do guindaste para o céu livre. Ambos permanecem opacos durante o movimento: o equipamento na camada de primeiro plano oculta os trechos de texto sobrepostos, enquanto uma revelação lateral acompanha a saída do título. As posições iniciais são projetadas a partir de coordenadas da foto original para o object-fit atual, mantendo fundo e máscara alinhados em desktop e mobile.
+A entrada do título parte do trecho superior da lança e percorre uma distância curta até a posição final, sem subir desde o caminhão. A descrição emerge do braço do guindaste para o céu livre. Uma transição inicial de opacidade dura 200 ms; a profundidade vem exclusivamente do equipamento na camada de primeiro plano, sem recorte retangular nos textos. As posições iniciais são projetadas a partir de coordenadas da foto original para o object-fit atual, mantendo fundo e máscara alinhados em desktop e mobile. Ao retornar de outro aplicativo durante a entrada, a cena conclui na composição legível.
 
 A cena tem duração limitada, sem rotação ou deformação do equipamento. Uma mudança de largura conclui a entrada, e retornar à seção não reinicia a animação. Movimento reduzido mantém a composição final estática. Listeners, timelines e tentativas assíncronas são limpos ao sair.
 
